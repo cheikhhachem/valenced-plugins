@@ -13,6 +13,30 @@ const SKIP_CHANNEL_TYPES = new Set([1, 3, 4])
 let enabled = true
 let permissionsModule: any
 const realPermissionChecks = new WeakSet<object>()
+const diagnostics = {
+	starts: 0,
+	moduleFound: false,
+	patchInstalled: false,
+	canCalls: 0,
+	viewCalls: 0,
+	hiddenDetected: 0,
+	lastChannel: '',
+	lastType: '',
+}
+
+function diagnosticsText() {
+	return [
+		`Enabled: ${enabled}`,
+		`Plugin starts: ${diagnostics.starts}`,
+		`Permission module found: ${diagnostics.moduleFound}`,
+		`Permission patch installed: ${diagnostics.patchInstalled}`,
+		`can() calls observed: ${diagnostics.canCalls}`,
+		`VIEW_CHANNEL checks: ${diagnostics.viewCalls}`,
+		`Denied channels detected: ${diagnostics.hiddenDetected}`,
+		`Last channel: ${diagnostics.lastChannel || 'none'}`,
+		`Last channel type: ${diagnostics.lastType || 'none'}`,
+	].join('\n')
+}
 
 function isHidden(channel: any): boolean {
 	if (!enabled || !channel || typeof channel !== 'object') return false
@@ -29,32 +53,43 @@ function isHidden(channel: any): boolean {
 
 export default plugin({
 	start({ cleanup, plugin }) {
+		diagnostics.starts += 1
 		cleanup(
 			getModules(withProps('can'), module => {
 				permissionsModule = module
+				diagnostics.moduleFound = true
 				cleanup(
 					instead(module, 'can', (args, original) => {
 						const [permission, channel] = args
+						diagnostics.canCalls += 1
+						if (permission === VIEW_CHANNEL) {
+							diagnostics.viewCalls += 1
+							diagnostics.lastChannel = String(channel?.name ?? channel?.id ?? 'unnamed')
+							diagnostics.lastType = String(channel?.type ?? 'unknown')
+						}
 						if (
 							permission === VIEW_CHANNEL &&
 							channel &&
 							!realPermissionChecks.has(channel) &&
 							isHidden(channel)
 						) {
+							diagnostics.hiddenDetected += 1
 							return true
 						}
 						return original(...args)
 					}),
 				)
+				diagnostics.patchInstalled = true
 			}),
 		)
 
 	},
 	stop() {
 		permissionsModule = undefined
+		diagnostics.patchInstalled = false
 	},
 	SettingsComponent({ api }) {
-		const { React } = api.unscoped.react
+		const { React, ReactNative: RN } = api.unscoped.react
 		const [, refresh] = React.useState(0)
 		const { TableRowGroup, TableSwitchRow } = Design
 		return React.createElement(
@@ -73,6 +108,16 @@ export default plugin({
 						refresh(value ? 1 : 0)
 					},
 				}),
+			),
+			React.createElement(
+				RN.Text,
+				{ style: { margin: 16, fontSize: 13 } },
+				diagnosticsText(),
+			),
+			React.createElement(
+				RN.Pressable,
+				{ onPress: () => refresh(value => value + 1), style: { margin: 16 } },
+				React.createElement(RN.Text, null, 'Refresh diagnostics'),
 			),
 		)
 	},
