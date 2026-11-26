@@ -8,7 +8,7 @@ import { Design } from '@valenced/discord/design'
 import TableRowAssetIcon from '@valenced/components/TableRowAssetIcon'
 import { Constants } from '@valenced/discord/common/constants'
 
-const VIEW_CHANNEL = (Constants as any)?.Permissions?.VIEW_CHANNEL ?? 1024
+let VIEW_CHANNEL: any
 const SKIP_CHANNEL_TYPES = new Set([1, 3, 4])
 
 let enabled = true
@@ -56,6 +56,7 @@ function isHidden(channel: any): boolean {
 
 export default plugin({
 	start({ cleanup, plugin }) {
+		VIEW_CHANNEL = (Constants as any)?.Permissions?.VIEW_CHANNEL ?? 1024
 		diagnostics.starts += 1
 		cleanup(
 			getModules(withProps('can'), module => {

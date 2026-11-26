@@ -67,13 +67,26 @@
       ],
       "icon": "AppsIcon",
       "channels": {
-        "latest": "0.4.0"
+        "latest": "0.4.1"
       },
       "versions": {
         "0.4.0": {
           "url": "https://cheikhhachem.github.io/valenced-plugins/dist/vermillion.hidden-channels@0.4.0.zip",
           "sha256": "9daf26d93ba7bbf07f4d01e8115ab37989017b0e29957b9783c09e02c296ec8b",
           "size": 2239,
+          "dependencies": {
+            "valenced.api": {
+              "version": ">=1 <2"
+            },
+            "discord": {
+              "version": "*"
+            }
+          }
+        },
+        "0.4.1": {
+          "url": "https://cheikhhachem.github.io/valenced-plugins/dist/vermillion.hidden-channels@0.4.1.zip",
+          "sha256": "be4e3356bc86e8ba9069954d902a185037f5b7ce071429e348809fcb4b8a5406",
+          "size": 1951,
           "dependencies": {
             "valenced.api": {
               "version": ">=1 <2"

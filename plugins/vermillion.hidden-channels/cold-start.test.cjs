@@ -1,0 +1,10 @@
+const fs = require('node:fs');
+const vm = require('node:vm');
+const assert = require('node:assert/strict');
+const code = fs.readFileSync(__dirname + '/build/js/index.js', 'utf8');
+let ready = false;
+const common = {};
+Object.defineProperty(common, 'constants', { get() { if (!ready) throw new Error('constants unavailable at bundle evaluation'); return { Constants: { Permissions: { VIEW_CHANNEL: 1024n } } }; } });
+const valenced = { discord: { common }, modules: { finders: {} }, patcher: {}, components: {} };
+assert.doesNotThrow(() => vm.runInNewContext(code, {valenced, plugin: x => x, Set, WeakSet}));
+console.log('cold bundle evaluation passed');
