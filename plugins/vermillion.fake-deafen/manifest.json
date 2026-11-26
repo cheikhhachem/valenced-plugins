@@ -8,7 +8,7 @@
   "contributors": [
     "fizzexual (original inspiration)"
   ],
-  "version": "1.0.9",
+  "version": "1.1.0",
   "dependencies": {
     "valenced.api": {
       "version": ">=1 <2"

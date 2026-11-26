@@ -67,7 +67,7 @@ function createController(api: any): FakeDeafenController {
 		last = null
 		applied = false
 
-		if (!socket || typeof socket.send !== 'function' || typeof socket.voiceStateUpdate !== 'function') return
+		if (!socket || typeof socket.send !== 'function') return
 
 		unpatchSend = patcher.instead(socket, 'send', function(this: unknown, args: unknown[], original: (...args: unknown[]) => unknown) {
 			const opcode = args[0]
