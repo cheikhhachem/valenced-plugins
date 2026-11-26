@@ -12,13 +12,13 @@
       ],
       "icon": "PhoneCallIcon",
       "channels": {
-        "latest": "1.0.7"
+        "latest": "1.0.8"
       },
       "versions": {
-        "1.0.7": {
-          "url": "https://cheikhhachem.github.io/valenced-plugins/dist/vermillion.fake-deafen@1.0.7.zip",
-          "sha256": "ad33914178e1a547d02512f79ed6311aae4d8c88a67a76afd05c5a3a07ed39d8",
-          "size": 3136,
+        "1.0.8": {
+          "url": "https://cheikhhachem.github.io/valenced-plugins/dist/vermillion.fake-deafen@1.0.8.zip",
+          "sha256": "1e9099cceb0908f963370ad0f53c26642865475c575cd757969dd26e80d95b18",
+          "size": 3174,
           "dependencies": {
             "valenced.api": {
               "version": ">=1 <2"
