@@ -1,0 +1,20 @@
+{
+  "format": 1,
+  "id": "vermillion.command-lib",
+  "name": "Vermillion Command Lib",
+  "description": "Shared command registration support for Vermillion's Valenced plugins.",
+  "icon": "AppsIcon",
+  "author": "Vermillion <460603743390662666> (https://github.com/cheikhhachem \"GitHub\")",
+  "version": "1.0.0",
+  "dependencies": {
+    "valenced.api": {
+      "version": ">=1 <2"
+    },
+    "discord": {
+      "version": "*"
+    }
+  },
+  "dist": {
+    "script": "index.js"
+  }
+}
