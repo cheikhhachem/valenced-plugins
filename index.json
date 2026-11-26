@@ -36,13 +36,13 @@
       ],
       "icon": "PhoneCallIcon",
       "channels": {
-        "latest": "1.2.0"
+        "latest": "1.2.1"
       },
       "versions": {
-        "1.2.0": {
-          "url": "https://cheikhhachem.github.io/valenced-plugins/dist/vermillion.fake-deafen@1.2.0.zip",
-          "sha256": "6a3ce6476616b6b2d0aeb666a277849f901e85b9137461a01f9aed2b880cab21",
-          "size": 3129,
+        "1.2.1": {
+          "url": "https://cheikhhachem.github.io/valenced-plugins/dist/vermillion.fake-deafen@1.2.1.zip",
+          "sha256": "15cfe0ca763bfe6cb2856c211eeedecd8c8f010cdb4b6a4da9ea1035b6d1db40",
+          "size": 3121,
           "dependencies": {
             "valenced.api": {
               "version": ">=1 <2"
@@ -50,8 +50,8 @@
             "discord": {
               "version": "*"
             },
-            "dev.cocobo1.command-lib": {
-              "version": ">=2 <3"
+            "vermillion.command-lib": {
+              "version": ">=1 <2"
             }
           }
         }
