@@ -3,6 +3,33 @@
   "name": "Vermillion's Valenced Plugins",
   "description": "A curated collection of polished plugins for Valenced.",
   "plugins": {
+    "vermillion.command-test": {
+      "name": "Command test",
+      "description": "Minimal command-library test plugin that adds /test and replies hello.",
+      "author": "Vermillion <460603743390662666> (https://github.com/cheikhhachem \"GitHub\")",
+      "icon": "AppsIcon",
+      "channels": {
+        "latest": "1.0.0"
+      },
+      "versions": {
+        "1.0.0": {
+          "url": "https://cheikhhachem.github.io/valenced-plugins/dist/vermillion.command-test@1.0.0.zip",
+          "sha256": "da6c4d5964ccb07c1fc0ce723c7bdf3c78ccc8b69c930aa7dc18f793ea411987",
+          "size": 1273,
+          "dependencies": {
+            "valenced.api": {
+              "version": ">=1 <2"
+            },
+            "discord": {
+              "version": "*"
+            },
+            "dev.cocobo1.command-lib": {
+              "version": ">=2 <3"
+            }
+          }
+        }
+      }
+    },
     "vermillion.fake-deafen": {
       "name": "Fake deafen",
       "description": "Reports the deafened voice state without changing the microphone or local audio controls.",
