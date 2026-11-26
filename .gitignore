@@ -1,7 +1,9 @@
 # Build and generated files
 build/
-dist/
 pool/
+# Published plugin ZIP artifacts
+!dist/
+!dist/*.zip
 node_modules/
 
 # Local tooling
