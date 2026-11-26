@@ -6,8 +6,9 @@ import { instead } from '@valenced/patcher'
 import Page from '@valenced/components/Page'
 import { Design } from '@valenced/discord/design'
 import TableRowAssetIcon from '@valenced/components/TableRowAssetIcon'
+import { Constants } from '@valenced/discord/common/constants'
 
-const VIEW_CHANNEL = 1024
+const VIEW_CHANNEL = (Constants as any)?.Permissions?.VIEW_CHANNEL ?? 1024
 const SKIP_CHANNEL_TYPES = new Set([1, 3, 4])
 
 let enabled = true
@@ -22,6 +23,7 @@ const diagnostics = {
 	hiddenDetected: 0,
 	lastChannel: '',
 	lastType: '',
+	lastPermission: '',
 }
 
 function diagnosticsText() {
@@ -35,6 +37,7 @@ function diagnosticsText() {
 		`Denied channels detected: ${diagnostics.hiddenDetected}`,
 		`Last channel: ${diagnostics.lastChannel || 'none'}`,
 		`Last channel type: ${diagnostics.lastType || 'none'}`,
+		`Last permission: ${diagnostics.lastPermission || 'none'}`,
 	].join('\n')
 }
 
@@ -62,6 +65,7 @@ export default plugin({
 					instead(module, 'can', (args, original) => {
 						const [permission, channel] = args
 						diagnostics.canCalls += 1
+						diagnostics.lastPermission = String(permission)
 						if (permission === VIEW_CHANNEL) {
 							diagnostics.viewCalls += 1
 							diagnostics.lastChannel = String(channel?.name ?? channel?.id ?? 'unnamed')
