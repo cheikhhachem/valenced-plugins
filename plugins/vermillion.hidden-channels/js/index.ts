@@ -12,25 +12,25 @@ const SKIP_CHANNEL_TYPES = new Set([1, 3, 4])
 
 let enabled = true
 let permissionsModule: any
-
+const realPermissionChecks = new WeakSet<object>()
 
 function isHidden(channel: any): boolean {
 	if (!enabled || !channel || typeof channel !== 'object') return false
 	if (SKIP_CHANNEL_TYPES.has(channel.type)) return false
 	if (!permissionsModule || typeof permissionsModule.can !== 'function') return false
 
-	channel.__vermillionHiddenChannelsRealCheck = true
+	realPermissionChecks.add(channel)
 	try {
 		return !permissionsModule.can(VIEW_CHANNEL, channel)
 	} finally {
-		delete channel.__vermillionHiddenChannelsRealCheck
+		realPermissionChecks.delete(channel)
 	}
 }
 
 export default plugin({
 	start({ cleanup, plugin }) {
 		cleanup(
-			getModules(withProps('getChannelPermissions', 'can'), module => {
+			getModules(withProps('can'), module => {
 				permissionsModule = module
 				cleanup(
 					instead(module, 'can', (args, original) => {
@@ -38,7 +38,7 @@ export default plugin({
 						if (
 							permission === VIEW_CHANNEL &&
 							channel &&
-							!channel.__vermillionHiddenChannelsRealCheck &&
+							!realPermissionChecks.has(channel) &&
 							isHidden(channel)
 						) {
 							return true
