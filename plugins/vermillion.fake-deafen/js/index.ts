@@ -69,7 +69,7 @@ function createController(api: any): FakeDeafenController {
 
 		if (!socket || typeof socket.send !== 'function' || typeof socket.voiceStateUpdate !== 'function') return
 
-		unpatchSend = patcher.instead('send', socket, function(this: unknown, args: unknown[], original: (...args: unknown[]) => unknown) {
+		unpatchSend = patcher.instead(socket, 'send', function(this: unknown, args: unknown[], original: (...args: unknown[]) => unknown) {
 			const opcode = args[0]
 			const payload = args[1] as Partial<VoiceStatePayload> | undefined
 			const isVoiceUpdate = opcode === 4
@@ -113,7 +113,7 @@ function createController(api: any): FakeDeafenController {
 			started = true
 			const gateway = getGateway()
 			if (!gateway || typeof gateway.getSocket !== 'function') return
-			unpatchGetter = patcher.after('getSocket', gateway, (_result: unknown, result: unknown) => {
+			unpatchGetter = patcher.after(gateway, 'getSocket', (_args: unknown[], result: unknown) => {
 				adopt(result)
 			})
 			refresh()
