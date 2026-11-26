@@ -172,8 +172,16 @@ function statusText() {
 
 export default plugin({
 	start(api) {
-		controller ??= createController(api)
-		controller.start()
+		try {
+			controller ??= createController(api)
+			controller.start()
+		} catch (error) {
+			try {
+				controller?.stop()
+			} finally {
+				api.plugin?.reportError?.(error)
+			}
+		}
 
 		const commandApi = api.commands?.commands
 		if (typeof commandApi?.registerCommand !== 'function') {
