@@ -3,11 +3,12 @@
   "id": "vermillion.fake-deafen",
   "name": "Fake deafen",
   "description": "Reports the deafened voice state without changing the microphone or local audio controls.",
+  "icon": "PhoneCallIcon",
   "author": "Vermillion <460603743390662666> (https://github.com/cheikhhachem \"GitHub\")",
   "contributors": [
     "fizzexual (original inspiration)"
   ],
-  "version": "1.0.1",
+  "version": "1.0.2",
   "dependencies": {
     "valenced.api": {
       "version": ">=1 <2"

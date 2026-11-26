@@ -10,14 +10,15 @@
       "contributors": [
         "fizzexual (original inspiration)"
       ],
+      "icon": "PhoneCallIcon",
       "channels": {
-        "latest": "1.0.1"
+        "latest": "1.0.2"
       },
       "versions": {
-        "1.0.1": {
-          "url": "https://cheikhhachem.github.io/valenced-plugins/dist/vermillion.fake-deafen@1.0.1.zip",
-          "sha256": "df5f4d6805a71ff87396bd33e2e5c94797ffde74c3a61bff87a99cc7cd225cd2",
-          "size": 3136,
+        "1.0.2": {
+          "url": "https://cheikhhachem.github.io/valenced-plugins/dist/vermillion.fake-deafen@1.0.2.zip",
+          "sha256": "08169eb9053fc747ff708f2711f6c59f4af6a2cda2fb7f8a9c3b537a13e344ec",
+          "size": 3379,
           "dependencies": {
             "valenced.api": {
               "version": ">=1 <2"

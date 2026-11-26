@@ -1,5 +1,9 @@
 /// <reference types="@valenced/types" />
 
+import { getModules } from '@valenced/modules/finders'
+import { withProps } from '@valenced/modules/finders/filters'
+import { instead } from '@valenced/patcher'
+
 interface VoiceStatePayload {
 	channel_id: string | null
 	guild_id?: string | null
@@ -154,6 +158,41 @@ function createController(api: any): FakeDeafenController {
 
 let controller: FakeDeafenController | undefined
 let unregisterCommands: (() => void)[] = []
+let registeredCommands: any[] = []
+let unpatchCommandModule: (() => void) | undefined
+
+function installCommands(api: any, commands: any[]) {
+	registeredCommands = commands
+	const unsubscribe = getModules(withProps('getBuiltInCommands'), (commandsModule: any) => {
+		const builtInCommands = commandsModule.getBuiltInCommands(1, true, false)
+		const lastCommand = [...builtInCommands]
+			.sort((a, b) => Number(b.id) - Number(a.id))
+			.at(-1)
+		for (const command of registeredCommands) {
+			command.id = String(Number(lastCommand?.id ?? 1) - 1 - registeredCommands.indexOf(command))
+			command.applicationId ??= '-1'
+			command.inputType ??= 1
+			command.type ??= 1
+		}
+
+		unpatchCommandModule?.()
+		unpatchCommandModule = instead(commandsModule, 'getBuiltInCommands', (args: any[], original: (...args: any[]) => any[]) => {
+			const result = original.apply(commandsModule, args)
+			const commandType = args[0]
+			const matchesType = (command: any) => Array.isArray(commandType)
+				? commandType.includes(command.type)
+				: command.type === commandType
+			return result.concat(registeredCommands.filter(command => matchesType(command) && !command.shouldHide?.()))
+		})
+	})
+
+	return () => {
+		unsubscribe()
+		unpatchCommandModule?.()
+		unpatchCommandModule = undefined
+		registeredCommands = []
+	}
+}
 
 function statusText() {
 	if (!controller) return 'Fake deafen: unavailable — plugin is not started.'
@@ -170,9 +209,6 @@ export default plugin({
 	start(api) {
 		controller ??= createController(api)
 		controller.start()
-
-		const commandApi = api.commands?.commands
-		if (typeof commandApi?.registerCommand !== 'function') return
 
 		const notify = (text: string, variant: 'default' | 'success' | 'critical' = 'default') => {
 			api.unscoped.discord.actions.ToastActionCreators.open('vermillion.fake-deafen', { text, variant })
@@ -200,8 +236,10 @@ export default plugin({
 
 		try {
 			unregisterCommands = [
-				commandApi.registerCommand(command('fd', 'Toggle reported deafening without changing the microphone.', () => toggle())),
-				commandApi.registerCommand(command('fdstatus', 'Show Fake deafen diagnostics.', () => notify(statusText()))),
+				installCommands(api, [
+					command('fd', 'Toggle reported deafening without changing the microphone.', () => toggle()),
+					command('fdstatus', 'Show Fake deafen diagnostics.', () => notify(statusText())),
+				]),
 			]
 		} catch (error) {
 			for (const unregister of unregisterCommands.splice(0)) unregister()
