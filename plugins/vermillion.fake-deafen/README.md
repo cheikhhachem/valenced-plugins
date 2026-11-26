@@ -1,4 +1,4 @@
-# Fake Deafen
+# Fake deafen
 
 Reports the voice state as deafened while leaving the microphone setting and local audio controls unchanged.
 

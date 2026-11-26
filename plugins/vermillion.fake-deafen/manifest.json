@@ -1,7 +1,7 @@
 {
   "format": 1,
   "id": "vermillion.fake-deafen",
-  "name": "Fake Deafen",
+  "name": "Fake deafen",
   "description": "Reports the deafened voice state without changing the microphone or local audio controls.",
   "author": "Vermillion <460603743390662666> (https://github.com/cheikhhachem \"GitHub\")",
   "contributors": [

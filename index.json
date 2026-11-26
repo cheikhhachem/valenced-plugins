@@ -4,7 +4,7 @@
   "description": "A curated collection of polished plugins for Valenced.",
   "plugins": {
     "vermillion.fake-deafen": {
-      "name": "Fake Deafen",
+      "name": "Fake deafen",
       "description": "Reports the deafened voice state without changing the microphone or local audio controls.",
       "author": "Vermillion <460603743390662666> (https://github.com/cheikhhachem \"GitHub\")",
       "contributors": [
@@ -16,8 +16,8 @@
       "versions": {
         "1.0.0": {
           "url": "https://cheikhhachem.github.io/valenced-plugins/dist/vermillion.fake-deafen@1.0.0.zip",
-          "sha256": "a51cf27787147168d7f63000bb14bfccffc3063ce7c1932c280310f84ef7ef27",
-          "size": 2698,
+          "sha256": "fe35cf46558a66f4d106c1bcbdfffb584ae7dc81128e20a7f6a59d7d16c3d9bd",
+          "size": 2697,
           "dependencies": {
             "valenced.api": {
               "version": ">=1 <2"
