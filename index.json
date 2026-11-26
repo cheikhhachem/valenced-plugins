@@ -56,6 +56,34 @@
           }
         }
       }
+    },
+    "vermillion.hidden-channels": {
+      "name": "Hidden channels",
+      "description": "Shows cached Discord channels hidden by VIEW_CHANNEL permission checks.",
+      "author": "Vermillion <460603743390662666> (https://github.com/cheikhhachem \"GitHub\")",
+      "contributors": [
+        "Lioncat6 (original Hidden Channels implementation)",
+        "cloudburst (original concept)"
+      ],
+      "icon": "AppsIcon",
+      "channels": {
+        "latest": "0.1.0"
+      },
+      "versions": {
+        "0.1.0": {
+          "url": "https://cheikhhachem.github.io/valenced-plugins/dist/vermillion.hidden-channels@0.1.0.zip",
+          "sha256": "1ebd93e278740f5291370ab1f50846700fb640064eed799633e9a4796e39d3ab",
+          "size": 1843,
+          "dependencies": {
+            "valenced.api": {
+              "version": ">=1 <2"
+            },
+            "discord": {
+              "version": "*"
+            }
+          }
+        }
+      }
     }
   }
 }

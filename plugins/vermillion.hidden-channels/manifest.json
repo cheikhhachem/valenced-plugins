@@ -1,0 +1,24 @@
+{
+  "format": 1,
+  "id": "vermillion.hidden-channels",
+  "name": "Hidden channels",
+  "description": "Shows cached Discord channels hidden by VIEW_CHANNEL permission checks.",
+  "icon": "AppsIcon",
+  "author": "Vermillion <460603743390662666> (https://github.com/cheikhhachem \"GitHub\")",
+  "contributors": [
+    "Lioncat6 (original Hidden Channels implementation)",
+    "cloudburst (original concept)"
+  ],
+  "version": "0.1.0",
+  "dependencies": {
+    "valenced.api": {
+      "version": ">=1 <2"
+    },
+    "discord": {
+      "version": "*"
+    }
+  },
+  "dist": {
+    "script": "js/index.js"
+  }
+}
