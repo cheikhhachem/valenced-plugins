@@ -217,7 +217,6 @@ export default plugin({
 			unregisterCommands = [
 				commandApi.registerCommand(command('fd', 'Toggle reported deafening without changing the microphone.', () => toggle())),
 				commandApi.registerCommand(command('fdstatus', 'Show Fake deafen diagnostics.', () => notify(statusText()))),
-				commandApi.registerCommand(command('test', 'Send a Fake deafen command test reply.', () => ({ content: 'hello' }))),
 			]
 		} catch (error) {
 			for (const unregister of unregisterCommands.splice(0)) unregister()

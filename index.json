@@ -3,28 +3,25 @@
   "name": "Vermillion's Valenced Plugins",
   "description": "A curated collection of polished plugins for Valenced.",
   "plugins": {
-    "vermillion.command-test": {
-      "name": "Command test",
-      "description": "Minimal command-library test plugin that adds /test and replies hello.",
+    "vermillion.command-lib": {
+      "name": "Vermillion Command Lib",
+      "description": "Shared command registration support for Vermillion's Valenced plugins.",
       "author": "Vermillion <460603743390662666> (https://github.com/cheikhhachem \"GitHub\")",
       "icon": "AppsIcon",
       "channels": {
-        "latest": "1.0.1"
+        "latest": "1.0.0"
       },
       "versions": {
-        "1.0.1": {
-          "url": "https://cheikhhachem.github.io/valenced-plugins/dist/vermillion.command-test@1.0.1.zip",
-          "sha256": "c23fe1b4e0cbaf99ca664af96260cd1f74338a393f7c33dc300c16f8a9e25567",
-          "size": 1276,
+        "1.0.0": {
+          "url": "https://cheikhhachem.github.io/valenced-plugins/dist/vermillion.command-lib@1.0.0.zip",
+          "sha256": "a90b976eddb8861afe4e80a705231a5bdea394a942907182c43279efa31ea7bb",
+          "size": 1659,
           "dependencies": {
             "valenced.api": {
               "version": ">=1 <2"
             },
             "discord": {
               "version": "*"
-            },
-            "dev.cocobo1.command-lib": {
-              "version": ">=2 <3"
             }
           }
         }
@@ -39,13 +36,13 @@
       ],
       "icon": "PhoneCallIcon",
       "channels": {
-        "latest": "1.1.0"
+        "latest": "1.2.0"
       },
       "versions": {
-        "1.1.0": {
-          "url": "https://cheikhhachem.github.io/valenced-plugins/dist/vermillion.fake-deafen@1.1.0.zip",
-          "sha256": "55bab1b7a7551651a2e4cd8ea733f3a6069728fff4541e910400a0786cf36564",
-          "size": 3165,
+        "1.2.0": {
+          "url": "https://cheikhhachem.github.io/valenced-plugins/dist/vermillion.fake-deafen@1.2.0.zip",
+          "sha256": "6a3ce6476616b6b2d0aeb666a277849f901e85b9137461a01f9aed2b880cab21",
+          "size": 3129,
           "dependencies": {
             "valenced.api": {
               "version": ">=1 <2"
