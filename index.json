@@ -11,13 +11,13 @@
         "fizzexual (original inspiration)"
       ],
       "channels": {
-        "latest": "1.0.0"
+        "latest": "1.0.1"
       },
       "versions": {
-        "1.0.0": {
-          "url": "https://cheikhhachem.github.io/valenced-plugins/dist/vermillion.fake-deafen@1.0.0.zip",
-          "sha256": "fe35cf46558a66f4d106c1bcbdfffb584ae7dc81128e20a7f6a59d7d16c3d9bd",
-          "size": 2697,
+        "1.0.1": {
+          "url": "https://cheikhhachem.github.io/valenced-plugins/dist/vermillion.fake-deafen@1.0.1.zip",
+          "sha256": "df5f4d6805a71ff87396bd33e2e5c94797ffde74c3a61bff87a99cc7cd225cd2",
+          "size": 3136,
           "dependencies": {
             "valenced.api": {
               "version": ">=1 <2"

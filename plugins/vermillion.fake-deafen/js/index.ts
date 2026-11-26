@@ -153,13 +153,63 @@ function createController(api: any): FakeDeafenController {
 }
 
 let controller: FakeDeafenController | undefined
+let unregisterCommands: (() => void)[] = []
+
+function statusText() {
+	if (!controller) return 'Fake deafen: unavailable — plugin is not started.'
+	const state = controller.status()
+	if (state.state === 'unavailable') return 'Fake deafen: unavailable — compatible gateway socket not found.'
+	if (state.state === 'requested') {
+		return `Fake deafen: request sent; microphone unchanged.${state.realDeaf ? ' Normal Deafen is also ON.' : ''}`
+	}
+	if (state.state === 'armed') return 'Fake deafen: armed; the next voice-state update will carry the deafened flag.'
+	return 'Fake deafen: off.'
+}
 
 export default plugin({
 	start(api) {
 		controller ??= createController(api)
 		controller.start()
+
+		const commandApi = api.commands?.commands
+		if (typeof commandApi?.registerCommand !== 'function') return
+
+		const notify = (text: string, variant: 'default' | 'success' | 'critical' = 'default') => {
+			api.unscoped.discord.actions.ToastActionCreators.open('vermillion.fake-deafen', { text, variant })
+		}
+		const toggle = () => {
+			try {
+				if (!controller) throw new Error('Plugin is not started')
+				controller.setEnabled(!controller.status().enabled)
+				notify(statusText(), 'success')
+			} catch (error) {
+				notify(`Fake deafen: unable to change state — ${error instanceof Error ? error.message : 'unknown error'}`, 'critical')
+			}
+		}
+		const command = (name: string, description: string, execute: (...args: any[]) => void) => ({
+			name,
+			displayName: name,
+			description,
+			displayDescription: description,
+			applicationId: '-1',
+			inputType: 1,
+			type: 1,
+			shouldHide: () => false,
+			execute,
+		})
+
+		try {
+			unregisterCommands = [
+				commandApi.registerCommand(command('fd', 'Toggle reported deafening without changing the microphone.', () => toggle())),
+				commandApi.registerCommand(command('fdstatus', 'Show Fake deafen diagnostics.', () => notify(statusText()))),
+			]
+		} catch (error) {
+			for (const unregister of unregisterCommands.splice(0)) unregister()
+			api.plugin?.reportError?.(error)
+		}
 	},
 	stop() {
+		for (const unregister of unregisterCommands.splice(0)) unregister()
 		controller?.stop()
 	},
 	SettingsComponent({ api }) {
