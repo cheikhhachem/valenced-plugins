@@ -3,30 +3,6 @@
   "name": "Vermillion's Valenced Plugins",
   "description": "A curated collection of polished plugins for Valenced.",
   "plugins": {
-    "vermillion.command-lib": {
-      "name": "Vermillion Command Lib",
-      "description": "Shared command registration support for Vermillion's Valenced plugins.",
-      "author": "Vermillion <460603743390662666> (https://github.com/cheikhhachem \"GitHub\")",
-      "icon": "AppsIcon",
-      "channels": {
-        "latest": "1.0.0"
-      },
-      "versions": {
-        "1.0.0": {
-          "url": "https://cheikhhachem.github.io/valenced-plugins/dist/vermillion.command-lib@1.0.0.zip",
-          "sha256": "57ceb10e02cb990c98d5c6d25659aec351d370237193a31470462bbc7a62e0d2",
-          "size": 1634,
-          "dependencies": {
-            "valenced.api": {
-              "version": ">=1 <2"
-            },
-            "discord": {
-              "version": "*"
-            }
-          }
-        }
-      }
-    },
     "vermillion.fake-deafen": {
       "name": "Fake deafen",
       "description": "Reports the deafened voice state without changing the microphone or local audio controls.",
@@ -36,13 +12,13 @@
       ],
       "icon": "PhoneCallIcon",
       "channels": {
-        "latest": "1.0.4"
+        "latest": "1.0.5"
       },
       "versions": {
-        "1.0.4": {
-          "url": "https://cheikhhachem.github.io/valenced-plugins/dist/vermillion.fake-deafen@1.0.4.zip",
-          "sha256": "129778a819688912fb70d199efe152bbe868b69d3182daebc2614c2a15d78d5e",
-          "size": 3058,
+        "1.0.5": {
+          "url": "https://cheikhhachem.github.io/valenced-plugins/dist/vermillion.fake-deafen@1.0.5.zip",
+          "sha256": "99a268931ff7becf66b7542d08cd40df13b6675417077c2fecbe911b3847bcae",
+          "size": 3125,
           "dependencies": {
             "valenced.api": {
               "version": ">=1 <2"
@@ -50,8 +26,8 @@
             "discord": {
               "version": "*"
             },
-            "vermillion.command-lib": {
-              "version": ">=1 <2"
+            "dev.cocobo1.command-lib": {
+              "version": ">=2 <3"
             }
           }
         }

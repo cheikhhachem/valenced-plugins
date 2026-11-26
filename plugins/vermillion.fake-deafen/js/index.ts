@@ -175,6 +175,12 @@ export default plugin({
 		controller ??= createController(api)
 		controller.start()
 
+		const commandApi = api.commands?.commands
+		if (typeof commandApi?.registerCommand !== 'function') {
+			api.plugin?.reportError?.(new Error('Coco\'s Command Lib is unavailable'))
+			return
+		}
+
 		const notify = (text: string, variant: 'default' | 'success' | 'critical' = 'default') => {
 			api.unscoped.discord.actions.ToastActionCreators.open('vermillion.fake-deafen', { text, variant })
 		}
@@ -201,8 +207,8 @@ export default plugin({
 
 		try {
 			unregisterCommands = [
-				api.commandLib.registerCommand(command('fd', 'Toggle reported deafening without changing the microphone.', () => toggle())),
-				api.commandLib.registerCommand(command('fdstatus', 'Show Fake deafen diagnostics.', () => notify(statusText()))),
+				commandApi.registerCommand(command('fd', 'Toggle reported deafening without changing the microphone.', () => toggle())),
+				commandApi.registerCommand(command('fdstatus', 'Show Fake deafen diagnostics.', () => notify(statusText()))),
 			]
 		} catch (error) {
 			for (const unregister of unregisterCommands.splice(0)) unregister()
