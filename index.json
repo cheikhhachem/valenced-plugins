@@ -9,13 +9,13 @@
       "author": "Vermillion <460603743390662666> (https://github.com/cheikhhachem \"GitHub\")",
       "icon": "AppsIcon",
       "channels": {
-        "latest": "1.0.0"
+        "latest": "1.0.1"
       },
       "versions": {
-        "1.0.0": {
-          "url": "https://cheikhhachem.github.io/valenced-plugins/dist/vermillion.command-test@1.0.0.zip",
-          "sha256": "da6c4d5964ccb07c1fc0ce723c7bdf3c78ccc8b69c930aa7dc18f793ea411987",
-          "size": 1273,
+        "1.0.1": {
+          "url": "https://cheikhhachem.github.io/valenced-plugins/dist/vermillion.command-test@1.0.1.zip",
+          "sha256": "c23fe1b4e0cbaf99ca664af96260cd1f74338a393f7c33dc300c16f8a9e25567",
+          "size": 1276,
           "dependencies": {
             "valenced.api": {
               "version": ">=1 <2"
@@ -39,13 +39,13 @@
       ],
       "icon": "PhoneCallIcon",
       "channels": {
-        "latest": "1.0.8"
+        "latest": "1.0.9"
       },
       "versions": {
-        "1.0.8": {
-          "url": "https://cheikhhachem.github.io/valenced-plugins/dist/vermillion.fake-deafen@1.0.8.zip",
-          "sha256": "1e9099cceb0908f963370ad0f53c26642865475c575cd757969dd26e80d95b18",
-          "size": 3174,
+        "1.0.9": {
+          "url": "https://cheikhhachem.github.io/valenced-plugins/dist/vermillion.fake-deafen@1.0.9.zip",
+          "sha256": "2d52a4d3d985d2157f30eec4d0c437ad3207df8c8ecef985cd6ac1194790b94a",
+          "size": 3177,
           "dependencies": {
             "valenced.api": {
               "version": ">=1 <2"
