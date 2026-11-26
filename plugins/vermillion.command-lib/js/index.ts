@@ -10,6 +10,8 @@ interface ApplicationCommand {
 	displayName?: string
 	description: string
 	displayDescription?: string
+	untranslatedName?: string
+	untranslatedDescription?: string
 	applicationId?: string
 	inputType?: number
 	type?: number
@@ -19,76 +21,84 @@ interface ApplicationCommand {
 }
 
 const commands: ApplicationCommand[] = []
-let unsubscribeModules: (() => void) | undefined
-let unpatchCommands: (() => void) | undefined
+const patches = new Set<() => void>()
 
-function patchCommandModule(commandsModule: any) {
-	const builtInCommands = commandsModule.getBuiltInCommands(1, true, false)
-	const lastCommand = [...builtInCommands]
-		.sort((a, b) => Number(b.id) - Number(a.id))
-		.at(-1)
-
-	for (const command of commands) {
-		command.id ??= String(Number(lastCommand?.id ?? 1) - 1 - commands.indexOf(command))
-		command.applicationId ??= '-1'
-		command.inputType ??= 1
-		command.type ??= 1
-		command.displayName ??= command.name
-		command.displayDescription ??= command.description
-		command.untranslatedName ??= command.name
-		command.untranslatedDescription ??= command.description
-		command.shouldHide ??= () => false
-	}
-
-	unpatchCommands?.()
-	unpatchCommands = instead(commandsModule, 'getBuiltInCommands', (args: any[], original: (...args: any[]) => any[]) => {
-		const result = original.apply(commandsModule, args)
-		const commandType = args[0]
-		const matchesType = (command: ApplicationCommand) => Array.isArray(commandType)
-			? commandType.includes(command.type)
-			: command.type === commandType
-		return result.concat(commands.filter(command => matchesType(command) && !command.shouldHide?.()))
+function patchCommands() {
+	if (patches.size > 0) return
+	getModules(withProps('getBuiltInCommands'), (commandsModule: any) => {
+		const unpatch = instead(
+			commandsModule,
+			'getBuiltInCommands',
+			(args: any[], original: (...args: any[]) => any[]) => {
+				const result = original.apply(commandsModule, args)
+				const commandType = args[0]
+				const matchesType = (command: ApplicationCommand) => Array.isArray(commandType)
+					? commandType.includes(command.type)
+					: command.type === commandType
+				return result.concat(
+					commands.filter(command => matchesType(command) && !command.shouldHide?.()),
+				)
+			},
+		)
+		patches.add(unpatch)
 	})
 }
 
-function ensurePatched() {
-	if (unsubscribeModules) return
-	unsubscribeModules = getModules(withProps('getBuiltInCommands'), patchCommandModule)
+function unpatchCommands() {
+	for (const unpatch of patches) unpatch()
+	patches.clear()
 }
 
-const commandLib = {
+const commandsApi = {
 	registerCommand(command: ApplicationCommand) {
-		command.applicationId ??= '-1'
-		command.inputType ??= 1
-		command.type ??= 1
-		command.displayName ??= command.name
-		command.displayDescription ??= command.description
-		command.untranslatedName ??= command.name
-		command.untranslatedDescription ??= command.description
-		command.shouldHide ??= () => false
-		commands.push(command)
-		ensurePatched()
+		const unsubscribe = getModules(
+			withProps('getBuiltInCommands'),
+			(commandsModule: any) => {
+				let builtInCommands: ApplicationCommand[]
+				try {
+					builtInCommands = commandsModule.getBuiltInCommands(1, true, false)
+				} catch {
+					builtInCommands = commandsModule.getBuiltInCommands(
+						[1, 2, 3, 4, 5],
+						true,
+						false,
+					)
+				}
+
+				builtInCommands.sort((a, b) => Number(b.id) - Number(a.id))
+				const lastCommand = builtInCommands.at(-1)
+				command.id = String(Number(lastCommand?.id ?? 1) - 1)
+				command.applicationId ??= '-1'
+				command.type ??= 1
+				command.inputType ??= 1
+				command.displayName ??= command.name
+				command.untranslatedName ??= command.name
+				command.displayDescription ??= command.description
+				command.untranslatedDescription ??= command.description
+				command.shouldHide ??= () => false
+				commands.push(command)
+			},
+		)
+
 		return () => {
+			unsubscribe()
 			const index = commands.indexOf(command)
 			if (index !== -1) commands.splice(index, 1)
 		}
 	},
 }
 
+const commandsLib = { commands: commandsApi }
+
 export default plugin({
-	init({ decorate }) {
+	start({ decorate }) {
+		patchCommands()
 		decorate((target: any) => {
-			target.api.commandLib = commandLib
+			target.api.commands = commandsLib
 		})
-	},
-	start() {
-		ensurePatched()
 	},
 	stop() {
 		commands.splice(0)
-		unpatchCommands?.()
-		unpatchCommands = undefined
-		unsubscribeModules?.()
-		unsubscribeModules = undefined
+		unpatchCommands()
 	},
 })

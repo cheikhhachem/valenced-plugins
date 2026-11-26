@@ -185,7 +185,7 @@ export default plugin({
 
 		const commandApi = api.commands?.commands
 		if (typeof commandApi?.registerCommand !== 'function') {
-			api.plugin?.reportError?.(new Error('Coco\'s Command Lib is unavailable'))
+			api.plugin?.reportError?.(new Error('Vermillion Command Lib is unavailable'))
 			return
 		}
 
