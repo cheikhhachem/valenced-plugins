@@ -1,0 +1,10 @@
+# Build and generated files
+build/
+dist/
+pool/
+node_modules/
+
+# Local tooling
+.DS_Store
+.idea/
+.vscode/
