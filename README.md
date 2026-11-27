@@ -5,7 +5,7 @@
 A curated collection of plugins for **Valenced** — focused on useful, polished, and thoughtfully designed additions to the Discord mobile experience.
 
 [![Valenced](https://img.shields.io/badge/Valenced-plugin%20repository-6d5dfc?style=for-the-badge)](https://valenced.app/)
-[![Plugins](https://img.shields.io/badge/plugins-2-2026c7?style=for-the-badge)](https://github.com/cheikhhachem/valenced-plugins)
+[![Plugins](https://img.shields.io/badge/plugins-coming%20soon-2026c7?style=for-the-badge)](https://github.com/cheikhhachem/valenced-plugins)
 [![License](https://img.shields.io/badge/license-MIT-111827?style=for-the-badge)](LICENSE)
 
 </div>
@@ -20,21 +20,14 @@ Use the catalog URL below in Valenced:
 https://cheikhhachem.github.io/valenced-plugins/index.json
 ```
 
+The catalog is being prepared. Plugins will appear here as they are released.
+
 ## Available plugins
 
-### Fake deafen
+> **Nothing published yet.**  
+> The repository is ready for its first plugin.
 
-Report a deafened voice state while keeping your microphone setting and local audio controls unchanged.
-
-- Toggle with `/fd` or in the plugin settings; use `/fdstatus` for diagnostics.
-- Requires **Vermillion Command Lib**, included in this repository's catalog.
-- Resets when you leave voice or the gateway socket changes.
-
-### Hidden channels
-
-Display hidden channels already present in the Discord client cache, with a settings toggle and diagnostics.
-
-Only information available to the client can be displayed. The plugin cannot recover redacted channel names or grant access to private messages.
+This section will become the curated storefront for the collection, with each plugin presented by name, purpose, current version, and a concise feature overview.
 
 ## Principles
 
@@ -46,7 +39,7 @@ Only information available to the client can be displayed. The plugin cannot rec
 
 ## Follow the collection
 
-New plugins and updates will be added to the catalog as they become ready.
+New plugins and updates will be added to the catalog as they become ready. Until then, this repository is intentionally quiet: no demo plugins, filler packages, or unfinished experiments.
 
 ---
 
