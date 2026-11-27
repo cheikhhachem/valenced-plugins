@@ -5,7 +5,7 @@
 My plugins for Valenced on Discord mobile.
 
 [![Valenced](https://img.shields.io/badge/Valenced-plugin%20repository-6d5dfc?style=for-the-badge)](https://valenced.app/)
-[![Plugins](https://img.shields.io/badge/plugins-2-2026c7?style=for-the-badge)](https://github.com/cheikhhachem/valenced-plugins)
+[![Plugins](assets/plugins-badge.svg)](https://github.com/cheikhhachem/valenced-plugins)
 [![License](https://img.shields.io/badge/license-MIT-111827?style=for-the-badge)](LICENSE)
 
 </div>
